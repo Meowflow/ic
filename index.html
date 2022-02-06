@@ -1,0 +1,346 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="virtual IE with java for chromebook/MAC/PC">
+    <meta name="keywords" content="IE,chromebook,mac,linux,Internet explorer,java,flash,silverlight,ericom,">
+    <title>Cloud Browser - Virtual IE for Chromebook's , Mac's & PC (Support Java/Silverlight/Flash)</title>
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway" />
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css' />
+
+    <link href="/Content/bootstrap.min.css" rel="stylesheet" />
+
+    <link href="/Content/Site.css" rel="stylesheet" />
+    <script src="/Scripts/jquery-2.1.4.min.js"></script>
+    <script src="/Scripts/bootstrap.min.js"></script>
+
+    <script>
+        function showSupport()
+        {
+            UserVoice = window.UserVoice || []; (function () { var uv = document.createElement('script'); uv.type = 'text/javascript'; uv.async = true; uv.src = '//widget.uservoice.com/NO6XbkseRHEMFo62yGkbdg.js'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s) })();
+            var _wsSessionID = "";
+            var sExtra = _wsSessionID;
+            var _lastError = "";
+
+            if (_lastError != null)
+                sExtra += "," + _lastError;
+            UserVoice.push(['set', 'ticket_custom_fields', { 'sessiondata': sExtra }]);
+            UserVoice.push(['showLightbox', 'classic_widget', {
+                mode: 'full',
+                primary_color: '#cc6d00',
+                link_color: '#007dbf',
+                default_mode: 'support',
+                forum_id: 273096
+            }]);
+
+        }
+
+        if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) {
+            document.querySelector('meta[name=viewport]')
+              .setAttribute(
+                'content',
+                'initial-scale=1.0001, minimum-scale=1.0001, maximum-scale=1.0001, user-scalable=no'
+              );
+        }
+    </script>
+<style>
+</style>    
+
+</head>
+<body >
+
+    <div>
+        
+<link href="/Content/zocial.css" rel="stylesheet" />
+<script src="/Scripts/js.cookie.js"></script>
+<style>
+   .googlebutton {
+      border: 0px;
+      height:46px;
+      background: url('/Content/btn_google_signin_dark_normal_web.png');
+   }
+      .googlebutton:focus {
+         outline: 0;
+      }
+      .googlebutton:hover {
+         border: 0px;
+         background: url('/Content/btn_google_signin_dark_focus_web.png');
+      }
+
+      .googlebutton:active {
+         border: 0px;
+         background: url('/Content/btn_google_signin_dark_pressed_web.png');
+      }
+</style>
+<script>
+
+    function getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1);
+            if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+        }
+        return "";
+    }
+    function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        var expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + "; " + expires;
+    }
+
+
+
+    function openlogin(sReturnURL) {
+        //console.log(sReturnURL);
+        // check if we got cockie for prev 
+        var oLastloginProvider = getCookie('ieoc_loginprovider');
+        if (oLastloginProvider != null) {
+            var oItem = $("#"+oLastloginProvider);
+            //console.log('oLastloginProvider', oItem);
+            if (oItem != null && oItem.length==1) {
+                oItem.click();
+                return;
+            }
+        }
+        if (sReturnURL != null) {
+            var sQueryString=
+            $('#idLogin').attr('action', '/Account/ExternalLogin?returnUrl=' + sReturnURL);
+        }
+        $('#login_modal').modal({
+            show: 'true',
+            modal: true
+
+        });
+    }
+
+    $(document).ready(function () {
+       console.log('ready');
+
+       // ugly patch due to forcing us :()
+   
+
+        $('#idLogin').submit(function () {
+            $('#idPleasewaitanim').show();
+            //$('#serviceisdown').show();
+            
+            var pressedButtonName =
+                 typeof $(":input[type=submit]:focus")[0] === "undefined" ?
+                 $(":input[type=submit]:first")[0].id :
+                 $(":input[type=submit]:focus")[0].id;
+            console.log('pressedButtonName',pressedButtonName);
+            Cookies.set('ieoc_loginprovider', pressedButtonName, { domain: 'ieonchrome.com', expires: 365 });
+            // close the dialog
+            // move to please wait
+            $('#login_modal').hide();
+        });
+    });
+</script>
+
+<form action="/Account/ExternalLogin?ReturnUrl=%2F" id="idLogin" method="post">            <div tabindex="-1" role="dialog" aria-hidden="false" id="login_modal" class="modal fade login in" style="display: none;" data-keyboard="false" data-backdrop="static">
+                <div class="modal-dialog" style="width:430px;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="login_close" >×</button>
+
+                            <h4 class="modal-title" id="login_modal_title">Login / Register</h4>
+                            <h5>Using Cloud authentication services</h5>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-m1d-4 login-social-networks-block">
+                                    <div class="login-social-networks">
+                                       
+                                       <button type="submit" class="googlebutton" id="Google" name="provider" value="Google" title="Log in using your Google account" style="width:192px;margin-top:5px;"></button><br />
+                                       <button type="submit" class="zocial yahoo hidden" id="Yahoo" name="provider" value="Yahoo" title="Log in using your Yahoo account" style="width:185px;margin-top:5px;height:40px;">Login with Yahoo</button>
+                                       <button type="submit" class="zocial dropbox hidden" id="Dropbox" name="provider" value="Dropbox" title="Log in using your Dropbox account" style="width:185px;ma1rgin-top:10px;height:40px;">Login with Dropbox</button><br />
+
+                                        
+                                        <p style="color:black;">We will not post anything on your behalf.
+                                        <a href="//www.iubenda.com/privacy-policy/87628819/full-legal" target="iecprivacy" class="iubenda-white no-brand " id="i_badge-link" title="Privacy Policy" target="_parent">Privacy Policy</a>
+                                       </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+</form>    <div id="idPleasewaitanim" class="centered" style="display:none;z-index:10000">
+        <div id="floatingCirclesG">
+            <div class="f_circleG" id="frotateG_01"></div>
+            <div class="f_circleG" id="frotateG_02"></div>
+            <div class="f_circleG" id="frotateG_03"></div>
+            <div class="f_circleG" id="frotateG_04"></div>
+            <div class="f_circleG" id="frotateG_05"></div>
+            <div class="f_circleG" id="frotateG_06"></div>
+            <div class="f_circleG" id="frotateG_07"></div>
+            <div class="f_circleG" id="frotateG_08"></div>
+        </div>
+        <div id="serviceisdown" style="display:none;z-index:10000;font-size:x-large;color:white">
+            We apologise for any inconvenience<br>
+            Our cloud provider 'Microsoft Azure' is currently down<br>
+            Please check in a few minutes.<br />
+            <a href="https://azure.microsoft.com/en-us/status/">Azure Status</a>
+        </div>    </div>
+
+
+
+
+    </div>
+    <div class="section" id="page">
+        <!-- Defining the #page section with the section tag -->
+        <!-- Defining the #page section with the section tag -->
+
+        <div class="header">
+            <!-- Defining the header section of the page with the appropriate tag -->
+
+            <h1 style="display: inline-block; cursor:pointer;" onclick="window.location.href='/'"><img src="/content/ieonchrome.png" width="64" style="width:64px;float:left; margin-top:-6px" /> Cloud Browser</h1>
+
+            <div class="nav clear">
+                <!-- The nav link semantically marks your main site navigation -->
+                <ul>
+                    <li><a href="/">Try now  </a></li>
+                    <li><a href="/upgrade">Plans  </a></li>
+                    <li><a href="#" onclick="showSupport();">Support  </a></li>
+                    
+
+
+        <li><a href="#" onclick="Cookies.remove('ieoc_loginprovider', { domain: 'ieonchrome.com' }); openlogin(); return false;">Login</a></li>
+
+                </ul>
+            </div>
+
+        </div>
+
+        
+
+
+<script>
+    function isUrl(s) {
+        if(/(^|\s)((https?:\/\/)?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)/gi.test(s)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function checkForurl()
+    {
+        if (isUrl($('#txtURL').val()) == true)
+            $('#btnGo').removeClass("disabled");
+        else
+            $('#btnGo').addClass("disabled");
+    }
+
+    function beep() {
+        var snd = new Audio("data:audio/wav;base64,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qJrx4KOQjahZxWbcZgztj2c49nKmkId44S71j0c8eV9yDK6uPRzx5X18eDvjvQ6yKo9ZSS6l//8elePK/Lf//IInrOF/FvDoADYAGBMGb7FtErm5MXMlmPAJQVgWta7Zx2go+8xJ0UiCb8LHHdftWyLJE0QIAIsI+UbXu67dZMjmgDGCGl1H+vpF4NSDckSIkk7Vd+sxEhBQMRU8j/12UIRhzSaUdQ+rQU5kGeFxm+hb1oh6pWWmv3uvmReDl0UnvtapVaIzo1jZbf/pD6ElLqSX+rUmOQNpJFa/r+sa4e/pBlAABoAAAAA3CUgShLdGIxsY7AUABPRrgCABdDuQ5GC7DqPQCgbbJUAoRSUj+NIEig0YfyWUho1VBBBA//uQZB4ABZx5zfMakeAAAAmwAAAAF5F3P0w9GtAAACfAAAAAwLhMDmAYWMgVEG1U0FIGCBgXBXAtfMH10000EEEEEECUBYln03TTTdNBDZopopYvrTTdNa325mImNg3TTPV9q3pmY0xoO6bv3r00y+IDGid/9aaaZTGMuj9mpu9Mpio1dXrr5HERTZSmqU36A3CumzN/9Robv/Xx4v9ijkSRSNLQhAWumap82WRSBUqXStV/YcS+XVLnSS+WLDroqArFkMEsAS+eWmrUzrO0oEmE40RlMZ5+ODIkAyKAGUwZ3mVKmcamcJnMW26MRPgUw6j+LkhyHGVGYjSUUKNpuJUQoOIAyDvEyG8S5yfK6dhZc0Tx1KI/gviKL6qvvFs1+bWtaz58uUNnryq6kt5RzOCkPWlVqVX2a/EEBUdU1KrXLf40GoiiFXK///qpoiDXrOgqDR38JB0bw7SoL+ZB9o1RCkQjQ2CBYZKd/+VJxZRRZlqSkKiws0WFxUyCwsKiMy7hUVFhIaCrNQsKkTIsLivwKKigsj8XYlwt/WKi2N4d//uQRCSAAjURNIHpMZBGYiaQPSYyAAABLAAAAAAAACWAAAAApUF/Mg+0aohSIRobBAsMlO//Kk4soosy1JSFRYWaLC4qZBYWFRGZdwqKiwkNBVmoWFSJkWFxX4FFRQWR+LsS4W/rFRb/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////VEFHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAU291bmRib3kuZGUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMjAwNGh0dHA6Ly93d3cuc291bmRib3kuZGUAAAAAAAAAACU=");
+        snd.play();
+    }
+
+    $(document).ready(function () {
+        setInterval(function () {
+            checkForurl();
+        }, 500);
+        $('#dropBrowser li').click(function (e) {
+            $('#browserType').text($(this).find("a").text()+'     ');
+            checkForurl();
+
+        });
+
+        $('#txtURL').keypress(function (event) {
+            checkForurl();
+
+            if (event.keyCode == '13') {
+                if (isUrl($('#txtURL').val()) == true)
+                    $('#btnGo').click();
+                else
+                    beep();
+                event.preventDefault();
+            }
+        });
+
+        $('#btnGo').click(function (event) {
+            // lets take the keyword
+            var strText = $('#browserType').text().trim();
+            
+            var ieType = $("a:contains(" + strText + ")").attr('ietype');
+            console.log(ieType);
+            if (!ieType)
+                ieType = "ielatest";
+            var sURL = $('#txtURL').val();
+
+            if (sURL.indexOf(".") == -1)
+                sURL += ".com";
+
+            window.location = "https://" + ieType + ".ieonchrome.com#" + sURL;
+            //alert($('a:contains(' + $('#browserType').text() + ')').text());
+            //alert($('#dropBrowser li').find('a:contains(' + $('#browserType').text() + ')').attr('ietype'));
+            
+            //alert('go');
+        });
+
+        $('#txtURL').focus();
+    });
+</script>
+
+<div class="article">
+   <!-- The new article tag. The id is supplied so it can be scrolled into view. -->
+   <h2>Internet Explorer for your Mac and ChromeBook</h2>
+   <h4>Supports Java / Silverlight / Shockwave / Flash</h4>
+   <h4>Easily switch between Internet Explorer versions (IE7, IE8, IE9, IE10, IE11)</h4>
+
+   <div class="line"></div>
+   <h4>Try now</h4>
+   <div class="input-group v-center ">
+      <div class="input-group-btn">
+         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span id="browserType">IE10</span><span class="caret"></span></button>
+         <ul id="dropBrowser" class="dropdown-menu" role="menu">
+            <li><a href="#" ietype="IE11">IE11</a></li>
+            <li><a href="#" ietype="IE10">IE10</a></li>
+            <li><a href="#" ietype="IE9">IE9</a></li>
+            <li><a href="#" ietype="IE8">IE8</a></li>
+            <li><a href="#" ietype="IE7">IE7</a></li>
+         </ul>
+      </div><!-- /btn-group -->
+      <div class="input-group-btn" style="width:100%;  ">
+         <input type="url" class="form-control remove-round-corders" id="txtURL" placeholder="enter URL here (example: “www.google.com”)" style="width:80%;min-width:300px;max-width:90%;    ">
+         <a id="btnGo" href="#" class="btn btn-primary disabled" style="width:20%">Go!</a>
+      </div>
+   </div>
+   <div class="line"></div>
+   <h2> Are you a software vendor? IT guy ?  </h2>
+   <h4>
+      Want to deliver silverlight/IE only applications to any device?
+      <span style="font-size:medium">
+         <br />Contact us at <a target="emailsupport" href="mailto:sales@ieonchrome.com">sales@ieonchrome.com</a> for a great low price/  zero changes offers
+
+      </span>
+   </h4>
+   <br />
+   <div class="articleBody clear vcentered">
+
+   </div>
+   <a id="btnGo" target="iestore" style="display: none;" href="https://chrome.google.com/webstore/detail/ie-on-chrome/kmomimblkpkjeilfbkinoonalgiejlcl" cl1ass="btn btn-primary divcenter" style="font-size: 120%;"><img src="/Content/ChromeWebStore_Badge_v2_340x96.png" /></a>
+   <br />
+</div>
+
+
+
+        <div class="footer">
+            <!-- Marking the footer section -->
+
+            <div class="line"></div>
+<a href="//www.iubenda.com/privacy-policy/87628819" class="iubenda-white no-brand iub-legal-only iubenda-embed" title="Privacy Policy">Privacy Policy</a><script type="text/javascript">(function (w,d) {var loader = function () {var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src = "//cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s,tag);}; if(w.addEventListener){w.addEventListener("load", loader, false);}else if(w.attachEvent){w.attachEvent("onload", loader);}else{w.onload = loader;}})(window, document);</script>
+            <p>&copy; 2022 - MaggNetz LTD. <span> </span></p> <!-- Change the copyright notice -->
+        </div>
+    </div>
+
+    
+</body>
+</html>
